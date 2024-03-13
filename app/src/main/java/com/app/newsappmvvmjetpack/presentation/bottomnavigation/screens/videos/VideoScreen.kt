@@ -2,6 +2,7 @@ package com.app.newsappmvvmjetpack.presentation.bottomnavigation.screens.videos
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -12,41 +13,101 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.app.newsappmvvmjetpack.R
+import com.app.newsappmvvmjetpack.data.remote.dto.getRecentPost.RecentPost
+import com.app.newsappmvvmjetpack.presentation.bottomnavigation.component.RecentListItem
+import com.app.newsappmvvmjetpack.presentation.bottomnavigation.component.VideoItem
+import com.app.newsappmvvmjetpack.presentation.bottomnavigation.screens.recentpost.RecentPostScreenViewModel
 import com.app.newsappmvvmjetpack.presentation.theme.NavigationBarMediumTheme
+import com.app.newsappmvvmjetpack.presentation.util.ErrorMessage
+import com.app.newsappmvvmjetpack.presentation.util.LoadingNextPageItem
+import com.app.newsappmvvmjetpack.presentation.util.PageLoader
 
 @Composable
-fun VideoScreen(navController: NavController) {
+fun VideoScreen(navController: NavController, viewModel: VideoPostScreenViewModel = hiltViewModel()) {
+    val videoPagingItems: LazyPagingItems<RecentPost> = viewModel.videoState.collectAsLazyPagingItems()
     NavigationBarMediumTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            Column(
-                modifier = Modifier.fillMaxSize().padding(15.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                Box(
-                    modifier = Modifier.fillMaxWidth()
-                        .height(250.dp)
-                        .padding(horizontal = 15.dp, vertical = 10.dp)
-                        .clip(MaterialTheme.shapes.large)
-                ) {
-                    Image(
-                        painter = painterResource(R.drawable.two),
-                        contentDescription = "search_screen_bg",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
-                    )
+            Box(modifier = Modifier.fillMaxSize()) {
+
+                LazyColumn(modifier = Modifier.fillMaxSize()) {
+
+                    item { Spacer(modifier = Modifier.padding(4.dp)) }
+
+                    items(videoPagingItems.itemCount) { index ->
+                        VideoItem(
+                            recentPost = videoPagingItems[index]!!,
+                            onItemClick = {
+                                // navController.navigate(AppScreen.DetailsScreen.route)
+                            }
+                        )
+
+                    }
+                    videoPagingItems.apply {
+                        when {
+                            loadState.refresh is LoadState.Loading -> {
+                                item { PageLoader(modifier = Modifier.fillParentMaxSize()) }
+                            }
+
+                            loadState.refresh is LoadState.Error -> {
+                                val error = videoPagingItems.loadState.refresh as LoadState.Error
+                                item {
+                                    ErrorMessage(
+                                        modifier = Modifier.fillParentMaxSize(),
+                                        message = error.error.localizedMessage!!,
+                                        onClickRetry = { retry() })
+                                }
+                            }
+
+                            loadState.append is LoadState.Loading -> {
+                                item { LoadingNextPageItem(modifier = Modifier) }
+                            }
+
+                            loadState.append is LoadState.Error -> {
+                                val error = videoPagingItems.loadState.append as LoadState.Error
+                                item {
+                                    ErrorMessage(
+                                        modifier = Modifier,
+                                        message = error.error.localizedMessage!!,
+                                        onClickRetry = { retry() })
+                                }
+                            }
+                        }
+                    }
+                    item { Spacer(modifier = Modifier.padding(4.dp)) }
+//                    state.coins?.let {
+//                         items(it.posts) { item: RecentPost ->
+//                            RecentListItem(recentPost = item, onItemClick = {
+//                               //navController.navigate(Screen.CoinDetailScreen.route + "/${it.id}")
+//                           })
+//                       }
+//                   }
                 }
-                Text(
-                    "Search Screen",
-                    style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(vertical = 20.dp)
-                )
+//                if (state.error.isNotBlank()) {
+//                    Text(
+//                        text = state.error,
+//                        style = TextStyle(color = MaterialTheme.colorScheme.error),
+//                        textAlign = TextAlign.Center,
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                            .padding(horizontal = 20.dp)
+//                            .align(Alignment.Center)
+//                    )
+//                }
+//                if (state.isLoading) {
+//                    CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+//                }
+
             }
         }
     }
+
 }

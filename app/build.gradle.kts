@@ -84,9 +84,9 @@ dependencies {
     implementation(libs.androidx.foundation)
 
     //room
-//    implementation(libs.room.runtime)
-//    implementation(libs.room.ktx)
-//    kapt(libs.room.compiler)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    kapt(libs.room.compiler)
 
     //coroutines
     implementation(libs.coroutines.core)

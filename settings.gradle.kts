@@ -19,6 +19,7 @@ dependencyResolutionManagement {
     }
 }
 
+
 rootProject.name = "NewsAppMVVMJetpack"
 include(":app")
  

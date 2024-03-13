@@ -30,6 +30,12 @@ interface RetrofitService {
         @Query("count") count: Int
     ): GetRecentPostDTO
 
+    @GET(Constants.GETVIDEOPOST)
+    suspend fun getVideoPost(
+        @Query("page") page: Int,
+        @Query("count") count: Int
+    ): GetRecentPostDTO
+
     companion object {
 
         private val interceptor = run {

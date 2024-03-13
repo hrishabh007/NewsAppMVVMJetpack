@@ -1,4 +1,4 @@
-package com.app.newsappmvvmjetpack.presentation.bottomnavigation.screens.recentpost
+package com.app.newsappmvvmjetpack.presentation.bottomnavigation.screens.videos
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -6,47 +6,45 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.app.newsappmvvmjetpack.common.Resource
 import com.app.newsappmvvmjetpack.data.remote.dto.getRecentPost.RecentPost
-import com.app.newsappmvvmjetpack.domain.model.getRecentPost.GetRecentPost
-import com.app.newsappmvvmjetpack.domain.usecase.get_recent_post.GetRecentPostUseCase
+import com.app.newsappmvvmjetpack.domain.usecase.get_video_post.GetVideoPostUseCase
+import com.app.newsappmvvmjetpack.presentation.bottomnavigation.screens.recentpost.RecentPostScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
 @HiltViewModel
-class RecentPostScreenViewModel @Inject constructor(private val getRecentPostUseCase: GetRecentPostUseCase) :
-    ViewModel() {
-    private val _state = mutableStateOf(RecentPostScreenState())
-    val state: State<RecentPostScreenState> = _state
-    private val _moviesState: MutableStateFlow<PagingData<RecentPost>> = MutableStateFlow(value = PagingData.empty())
-    val moviesState: MutableStateFlow<PagingData<RecentPost>> get() = _moviesState
+class VideoPostScreenViewModel @Inject constructor(private val getVideoPostUseCase: GetVideoPostUseCase) : ViewModel() {
+    private val _state = mutableStateOf(VideoPostScreenState())
+    val state: State<VideoPostScreenState> = _state
+    private val _videoState: MutableStateFlow<PagingData<RecentPost>> = MutableStateFlow(value = PagingData.empty())
+    val videoState: MutableStateFlow<PagingData<RecentPost>> get() = _videoState
+
     init {
-        onEvent(GetRecentPostEvent.GetRecentPost)
+        onEvent(GetVideoPostEvent.GetVideoPost)
     }
-    fun onEvent(event: GetRecentPostEvent) {
+
+    fun onEvent(event: GetVideoPostEvent) {
         viewModelScope.launch {
             when (event) {
-                is GetRecentPostEvent.GetRecentPost -> {
-                   getRecentPost()
-                  //  getCoins()
+                is GetVideoPostEvent.GetVideoPost -> {
+                    getVideoPost()
+                    //  getCoins()
                 }
 
                 else -> {}
             }
         }
     }
-    private suspend fun getRecentPost() {
-        getRecentPostUseCase.execute(Unit)
+
+    private suspend fun getVideoPost() {
+        getVideoPostUseCase.execute(Unit)
             .distinctUntilChanged()
             .cachedIn(viewModelScope)
             .collect {
-                _moviesState.value = it
+                videoState.value = it
             }
     }
 
@@ -74,6 +72,7 @@ class RecentPostScreenViewModel @Inject constructor(private val getRecentPostUse
 //    }
 }
 
-sealed class GetRecentPostEvent {
-    object GetRecentPost : GetRecentPostEvent()
+sealed class GetVideoPostEvent {
+    object GetVideoPost : GetVideoPostEvent()
+
 }

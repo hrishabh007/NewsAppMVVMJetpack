@@ -10,4 +10,5 @@ object Constants {
     const val GETCALLSETTINGS = "api/get_settings"
     const val GETCALLCATEGORY = "api/get_category_index"
     const val GETRECENTPOST = "api/get_recent_posts"
+    const val GETVIDEOPOST = "api/get_video_posts"
 }
