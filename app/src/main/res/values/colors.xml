@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+
+
+    <!--default theme color-->
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1E88E5</color>
+    <color name="colorAccent">#4aafff</color>
+    <color name="colorBackgroundLight">#FFFFFF</color>
+
+
+    <color name="colorBlack">#000000</color>
 </resources>

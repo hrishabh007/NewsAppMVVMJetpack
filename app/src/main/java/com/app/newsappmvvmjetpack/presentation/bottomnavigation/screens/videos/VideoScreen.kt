@@ -38,7 +38,7 @@ fun VideoScreen(navController: NavController, viewModel: VideoPostScreenViewMode
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
 
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
+                LazyColumn(modifier = Modifier.fillMaxSize().padding(horizontal = 10.dp)) {
 
                     item { Spacer(modifier = Modifier.padding(4.dp)) }
 

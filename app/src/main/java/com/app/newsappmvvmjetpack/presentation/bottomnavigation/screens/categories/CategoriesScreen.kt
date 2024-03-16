@@ -3,6 +3,9 @@ package com.app.newsappmvvmjetpack.presentation.bottomnavigation.screens.categor
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -35,16 +38,28 @@ fun CategoryScreen(navController: NavController, viewModel: CategoryViewModel = 
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            Box(modifier = Modifier.fillMaxSize()) {
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
+            val columnCount = 3
+            Box(modifier = Modifier.fillMaxWidth()) {
+                LazyVerticalGrid(columns = GridCells.Fixed(3)) {
                     state.coins?.let { it1 ->
                         items(it1.categories) {
                             CategoryItem(category = it, onItemClick = {
-
                             })
                         }
                     }
                 }
+//                LazyColumn(modifier = Modifier) {
+//                    state.coins?.let { it1 ->
+//                        items(it1.categories.chunked(columnCount)) { rowItems ->
+//                            Row {
+//                                for (item in rowItems) {
+//                                    CategoryItem(category = item, onItemClick = {})
+//                                }
+//                            }
+//                        }
+//
+//                    }
+//                }
                 if (state.error.isNotBlank()) {
                     Text(
                         text = state.error,

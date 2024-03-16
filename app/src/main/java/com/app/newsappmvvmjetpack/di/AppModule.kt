@@ -1,6 +1,7 @@
 package com.app.newsappmvvmjetpack.di
 
 
+import android.content.Context
 import com.app.newsappmvvmjetpack.data.datasource.remote.RecentPost.RecentPostDataSource
 import com.app.newsappmvvmjetpack.data.datasource.remote.RecentPost.RecentPostDataSourceImpl
 import com.app.newsappmvvmjetpack.data.datasource.remote.VideoPost.VideoPostDataSource
@@ -8,9 +9,11 @@ import com.app.newsappmvvmjetpack.data.datasource.remote.VideoPost.VideoPostData
 import com.app.newsappmvvmjetpack.data.remote.RetrofitService
 import com.app.newsappmvvmjetpack.data.repository.NewsRepositoryImpl
 import com.app.newsappmvvmjetpack.domain.repository.NewsRepository
+import com.example.rickandmorty.data.local.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -49,4 +52,8 @@ object AppModule {
     ): NewsRepository {
         return NewsRepositoryImpl(api, movieRemoteDataSource, videoPostDataSource)
     }
+
+    @Singleton
+    @Provides
+    fun provideDatabase(@ApplicationContext appContext: Context) = AppDatabase.getDatabase(appContext)
 }

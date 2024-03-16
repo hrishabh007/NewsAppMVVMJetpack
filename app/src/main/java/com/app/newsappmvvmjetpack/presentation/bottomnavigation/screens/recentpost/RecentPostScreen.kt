@@ -35,8 +35,8 @@ import kotlinx.coroutines.delay
 fun RecentPostScreen(navController: NavController, viewModel: RecentPostScreenViewModel = hiltViewModel()) {
 
     //val state = viewModel.state.value
-   // val lastIndex = state.coins?.posts?.lastIndex
-   // val items = state.coins?.posts
+    // val lastIndex = state.coins?.posts?.lastIndex
+    // val items = state.coins?.posts
     val moviePagingItems: LazyPagingItems<RecentPost> = viewModel.moviesState.collectAsLazyPagingItems()
     NavigationBarMediumTheme {
         Surface(
@@ -45,17 +45,29 @@ fun RecentPostScreen(navController: NavController, viewModel: RecentPostScreenVi
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
 
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
+                LazyColumn(modifier = Modifier.fillMaxSize().padding(horizontal = 10.dp)) {
 
                     item { Spacer(modifier = Modifier.padding(4.dp)) }
 
                     items(moviePagingItems.itemCount) { index ->
-                        RecentListItem(
-                            recentPost = moviePagingItems[index]!!,
-                            onItemClick = {
-                                // navController.navigate(AppScreen.DetailsScreen.route)
-                            }
-                        )
+                        if (index == 0) {
+                            RecentListItem(
+                                recentPost = moviePagingItems[index]!!,
+                                isLarge = true,
+                                onItemClick = {
+                                    // navController.navigate(AppScreen.DetailsScreen.route)
+                                }
+                            )
+                        } else {
+                            RecentListItem(
+                                recentPost = moviePagingItems[index]!!,
+                                isLarge = false,
+                                onItemClick = {
+                                    // navController.navigate(AppScreen.DetailsScreen.route)
+                                }
+                            )
+                        }
+
 
                     }
                     moviePagingItems.apply {

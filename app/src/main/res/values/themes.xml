@@ -5,4 +5,17 @@
     <style name="Theme.RemoveSplashScreenTheme" parent="Theme.NewsAppMVVMJetpack">
         <item name="android:windowIsTranslucent">true</item>
     </style>
+
+    <style name="Theme.BaseTheme" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorBackgroundLight</item>
+        <item name="android:actionBarTheme">@style/ToolBarTheme</item>
+    </style>
+    <style name="ToolBarTheme" parent="android:ThemeOverlay.Material.Light">
+        <item name="android:colorControlNormal">@color/colorBlack</item>
+    </style>
 </resources>

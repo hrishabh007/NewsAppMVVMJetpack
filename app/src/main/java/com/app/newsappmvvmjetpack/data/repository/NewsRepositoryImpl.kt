@@ -18,7 +18,7 @@ import javax.inject.Inject
 class NewsRepositoryImpl @Inject constructor(
     private val retrofitService: RetrofitService,
     private val recentRemoteDataSource: RecentPostDataSource,
-    private val videoRemoteDataSource:VideoPostDataSource
+    private val videoRemoteDataSource: VideoPostDataSource
 ) : NewsRepository {
     override suspend fun getSettings(): GetSettingsDTO {
         return retrofitService.getSettings()
@@ -30,7 +30,7 @@ class NewsRepositoryImpl @Inject constructor(
 
     override suspend fun getRecentPost(): Flow<PagingData<RecentPost>> {
         return Pager(
-            config = PagingConfig(pageSize = 10, prefetchDistance = 2),
+            config = PagingConfig(pageSize = 1, prefetchDistance = 2),
             pagingSourceFactory = {
                 RecentPostPagingSource(recentRemoteDataSource)
             }

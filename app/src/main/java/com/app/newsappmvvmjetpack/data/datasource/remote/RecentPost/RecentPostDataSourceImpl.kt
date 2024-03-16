@@ -11,5 +11,4 @@ class RecentPostDataSourceImpl @Inject constructor(
         return api.getRecentPost(page = page, count = count)
     }
 
-
 }
