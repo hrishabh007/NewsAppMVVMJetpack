@@ -23,6 +23,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.app.newsappmvvmjetpack.data.remote.dto.getRecentPost.RecentPost
+import com.app.newsappmvvmjetpack.presentation.bottomnavigation.Screens
 import com.app.newsappmvvmjetpack.presentation.bottomnavigation.component.RecentListItem
 import com.app.newsappmvvmjetpack.presentation.theme.NavigationBarMediumTheme
 import com.app.newsappmvvmjetpack.presentation.util.ErrorMessage
@@ -55,7 +56,8 @@ fun RecentPostScreen(navController: NavController, viewModel: RecentPostScreenVi
                                 recentPost = moviePagingItems[index]!!,
                                 isLarge = true,
                                 onItemClick = {
-                                    // navController.navigate(AppScreen.DetailsScreen.route)
+                                    navController.navigate(Screens.NewsDetail.route + "/${ moviePagingItems[index]!!.nid}")
+                                    // navController.navigate(Screens.NewsDetail.route)
                                 }
                             )
                         } else {
@@ -63,6 +65,7 @@ fun RecentPostScreen(navController: NavController, viewModel: RecentPostScreenVi
                                 recentPost = moviePagingItems[index]!!,
                                 isLarge = false,
                                 onItemClick = {
+                                    navController.navigate(Screens.NewsDetail.route + "/${ moviePagingItems[index]!!.nid}")
                                     // navController.navigate(AppScreen.DetailsScreen.route)
                                 }
                             )

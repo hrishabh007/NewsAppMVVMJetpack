@@ -25,6 +25,8 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.ui.res.painterResource
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -36,10 +38,12 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.app.newsappmvvmjetpack.common.ColorConstants
 import com.app.newsappmvvmjetpack.common.CommonFunction
+import com.app.newsappmvvmjetpack.common.Constants
 import com.app.newsappmvvmjetpack.presentation.bottomnavigation.screens.recentpost.RecentPostScreen
 import com.app.newsappmvvmjetpack.presentation.bottomnavigation.screens.categories.CategoryScreen
 import com.app.newsappmvvmjetpack.presentation.bottomnavigation.screens.favorite.FavoriteScreen
 import com.app.newsappmvvmjetpack.presentation.bottomnavigation.screens.videos.VideoScreen
+import com.app.newsappmvvmjetpack.presentation.newsDetail.NewsDetailScreen
 import com.app.newsappmvvmjetpack.presentation.theme.NavigationBarMediumTheme
 
 import dagger.hilt.android.AndroidEntryPoint
@@ -63,6 +67,18 @@ fun BottomNavigationBar() {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
+    var bottomBarState = rememberSaveable { (mutableStateOf(true)) }
+
+// State of topBar, set state to false, if current page route is "car_details"
+    val topBarState = rememberSaveable { (mutableStateOf(true)) }
+    when (navBackStackEntry?.destination?.route) {
+        Screens.NewsDetail.route -> {
+            // Show BottomBar and TopBar
+            bottomBarState.value = false
+            //topBarState.value = true
+        }
+
+    }
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = { CustomAppBar() },
@@ -85,6 +101,7 @@ fun BottomNavigationBar() {
                                 popUpTo(navController.graph.findStartDestination().id) {
                                     saveState = true
                                 }
+
                                 launchSingleTop = true
                                 restoreState = true
                             }
@@ -116,11 +133,17 @@ fun BottomNavigationBar() {
                 )
             }
             composable(Screens.Favorite.route) {
+
                 FavoriteScreen(
                     navController
                 )
             }
+            composable(Screens.NewsDetail.route+ "/{${Constants.PARAM_ID}}") {
+                NewsDetailScreen(
+                    navController
+                )
 
+            }
 
         }
     }

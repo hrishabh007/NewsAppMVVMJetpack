@@ -2,6 +2,7 @@ package com.app.newsappmvvmjetpack.data.remote
 
 import com.app.newsappmvvmjetpack.common.Constants
 import com.app.newsappmvvmjetpack.data.remote.dto.getCategory.GetCategoryDTO
+import com.app.newsappmvvmjetpack.data.remote.dto.getNewsDetail.GetNewsDetailDTO
 import com.app.newsappmvvmjetpack.data.remote.dto.getRecentPost.GetRecentPostDTO
 import com.app.newsappmvvmjetpack.data.remote.dto.getsettings.GetSettingsDTO
 import okhttp3.OkHttpClient
@@ -35,6 +36,11 @@ interface RetrofitService {
         @Query("page") page: Int,
         @Query("count") count: Int
     ): GetRecentPostDTO
+
+    @GET(Constants.GETNEWSDETAIL)
+    suspend fun getNewsDetail(
+        @Query("id") id: Int
+    ): GetNewsDetailDTO
 
     companion object {
 

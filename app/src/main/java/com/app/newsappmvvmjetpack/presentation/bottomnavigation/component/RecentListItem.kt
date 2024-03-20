@@ -60,6 +60,7 @@ fun RecentListItem(recentPost: RecentPost, isLarge: Boolean, onItemClick: (Recen
             Box(
                 Modifier
                     .padding()
+                    .clickable { onItemClick(recentPost) }
                     .fillMaxWidth()
                     .height(200.dp)
             ) {
@@ -114,6 +115,7 @@ fun RecentListItem(recentPost: RecentPost, isLarge: Boolean, onItemClick: (Recen
             Box(
                 Modifier
                     .padding()
+                    .clickable { onItemClick(recentPost) }
                     .fillMaxWidth()
 
             ) {

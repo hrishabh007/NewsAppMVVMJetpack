@@ -7,6 +7,7 @@ import com.app.newsappmvvmjetpack.data.datasource.remote.RecentPost.RecentPostDa
 import com.app.newsappmvvmjetpack.data.datasource.remote.VideoPost.VideoPostDataSource
 import com.app.newsappmvvmjetpack.data.remote.RetrofitService
 import com.app.newsappmvvmjetpack.data.remote.dto.getCategory.GetCategoryDTO
+import com.app.newsappmvvmjetpack.data.remote.dto.getNewsDetail.GetNewsDetailDTO
 import com.app.newsappmvvmjetpack.data.remote.dto.getRecentPost.RecentPost
 import com.app.newsappmvvmjetpack.data.remote.dto.getsettings.GetSettingsDTO
 import com.app.newsappmvvmjetpack.data.repository.paging.RecentPostPagingSource
@@ -44,6 +45,10 @@ class NewsRepositoryImpl @Inject constructor(
                 VideoPostPagingSource(videoRemoteDataSource)
             }
         ).flow
+    }
+
+    override suspend fun getNewsDetail(id: Int): GetNewsDetailDTO {
+        return retrofitService.getNewsDetail(id)
     }
 
 //    override suspend fun getRecentPost(page: Int, count: Int): Flow<PagingData<RecentPost>> {

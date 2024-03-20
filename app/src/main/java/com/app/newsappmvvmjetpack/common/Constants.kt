@@ -2,11 +2,11 @@ package com.app.newsappmvvmjetpack.common
 
 object Constants {
     const val IP = "192.168.232.193"
-    const val HOMEIP = " 192.168.1.91"
+    const val HOMEIP = "192.168.1.92"
     const val OFFICE_IP = "192.168.1.242"
     const val BASE_URL = "http://${OFFICE_IP}/android_news_app/"
     const val API_KEY = "cda11v2OkqSI1rhQm37PBXKnpisMtlaDzoc4w0U6uNATgZRbJG"
-    const val PARAM_COIN_ID = "coinId"
+    const val PARAM_ID = "id"
 
 
     //Endpoints for api
@@ -14,6 +14,7 @@ object Constants {
     const val GETCALLCATEGORY = "api/get_category_index"
     const val GETRECENTPOST = "api/get_recent_posts"
     const val GETVIDEOPOST = "api/get_video_posts"
+    const val GETNEWSDETAIL = "api/get_news_detail"
 
 
 
