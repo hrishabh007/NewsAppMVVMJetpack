@@ -41,10 +41,10 @@ fun RecentPostScreen(navController: NavController, viewModel: RecentPostScreenVi
     val moviePagingItems: LazyPagingItems<RecentPost> = viewModel.moviesState.collectAsLazyPagingItems()
     NavigationBarMediumTheme {
         Surface(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize().padding(top = 90.dp, bottom = 130.dp),
             color = MaterialTheme.colorScheme.background
         ) {
-            Box(modifier = Modifier.fillMaxSize()) {
+            Box(modifier = Modifier.fillMaxSize().padding()) {
 
                 LazyColumn(modifier = Modifier.fillMaxSize().padding(horizontal = 10.dp)) {
 

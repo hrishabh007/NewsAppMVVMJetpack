@@ -108,9 +108,11 @@ dependencies {
     // Paging
     implementation(libs.androidx.paging.runtime.ktx)
     implementation(libs.androidx.paging.compose)
-
     implementation (libs.coil.compose)
-
+    // Paging Compose slider
+    implementation (libs.accompanist.pager)
+    implementation (libs.accompanist.pager.indicators)
+    "implementation" (libs.core)
 }
 kapt {
     correctErrorTypes = true

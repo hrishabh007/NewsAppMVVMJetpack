@@ -17,10 +17,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -41,9 +38,10 @@ import com.app.newsappmvvmjetpack.R
 import com.app.newsappmvvmjetpack.common.CommonFunction
 import com.app.newsappmvvmjetpack.domain.model.getNewsDetail.GetNewsDetail
 
-import com.app.newsappmvvmjetpack.presentation.newsDetail.component.FullWidthImageSlider
-import com.app.newsappmvvmjetpack.presentation.newsDetail.component.ImageSlider
+
+import com.app.newsappmvvmjetpack.presentation.newsDetail.component.ViewPagerSlider
 import com.app.newsappmvvmjetpack.presentation.theme.NavigationBarMediumTheme
+import com.app.newsappmvvmjetpack.presentation.util.commoncomponents.CustomToolBarJetpack
 
 @Composable
 fun NewsDetailScreen(
@@ -54,9 +52,10 @@ fun NewsDetailScreen(
     var newsdetail = state.newsDetail?.post
     NavigationBarMediumTheme {
         Surface(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize().padding(top = 20.dp, bottom = 50.dp),
             color = MaterialTheme.colorScheme.background
         ) {
+
             var currentIndex by remember { mutableStateOf(0) }
             Box(modifier = Modifier.fillMaxWidth()) {
                 state.newsDetail.let {
@@ -64,7 +63,15 @@ fun NewsDetailScreen(
                     if (it != null) {
 
                         Column(modifier = Modifier.fillMaxWidth()) {
-                            ImageSlider(imageList = it.images)
+                            CustomToolBarJetpack(
+                                navController = navController,
+                                title = it.post.categoryName,
+                                back = true,
+                                newActions = {
+
+                                })
+                            // ImageSlider(imageList = it.images)
+                            ViewPagerSlider(list = it.images)
                             Text(
                                 text = newsdetail!!.newsTitle,
                                 fontFamily = CommonFunction.poppinsBold,
