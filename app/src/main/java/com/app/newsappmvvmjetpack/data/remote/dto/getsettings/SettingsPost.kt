@@ -21,9 +21,9 @@ data class SettingsPost(
     @SerializedName("more_apps_url")
     val moreAppsUrl: String,
     @SerializedName("onesignal_app_id")
-    val onesignalAppId: Int,
+    val onesignalAppId: String,
     @SerializedName("onesignal_rest_api_key")
-    val onesignalRestApiKey: Int,
+    val onesignalRestApiKey: String,
     @SerializedName("package_name")
     val packageName: String,
     @SerializedName("privacy_policy")

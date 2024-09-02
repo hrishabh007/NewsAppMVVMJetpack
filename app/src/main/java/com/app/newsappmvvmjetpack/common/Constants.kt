@@ -3,8 +3,8 @@ package com.app.newsappmvvmjetpack.common
 object Constants {
     const val IP = "192.168.232.193"
     const val HOMEIP = "192.168.1.92"
-    const val OFFICE_IP = "192.168.1.242"
-    const val BASE_URL = "http://${OFFICE_IP}/android_news_app/"
+    const val OFFICE_IP = "192.168.193.193:1234"
+    const val BASE_URL = "http://${OFFICE_IP}/"
     const val API_KEY = "cda11v2OkqSI1rhQm37PBXKnpisMtlaDzoc4w0U6uNATgZRbJG"
     const val PARAM_ID = "id"
 
